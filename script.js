@@ -1,6 +1,4 @@
-/**************************************************
- * グローバル変数・設定
- **************************************************/
+//グローバル変数・設定
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -44,9 +42,8 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/**************************************************
- * ゲーム開始 & リセット
- **************************************************/
+//ゲーム開始 & リセット
+ 
 function startGame() {
   resetGame();
   gameLoop();
@@ -65,9 +62,7 @@ function resetGame() {
   gameOver = false;
 }
 
-/**************************************************
- * ゲームループ
- **************************************************/
+//ゲームループ
 function gameLoop() {
   if (gameOver) {
     drawGameOver();
@@ -88,9 +83,7 @@ function gameLoop() {
   setTimeout(gameLoop, 200);
 }
 
-/**************************************************
- * ユーザー蛇の更新
- **************************************************/
+//ユーザー蛇の更新
 function updateUser() {
   const head = {
     x: snakeUser[0].x + velocityUser.x,
@@ -128,9 +121,8 @@ function updateUser() {
   }
 }
 
-/**************************************************
- * BFS AI: フロントエンドで完結するローカルAI
- **************************************************/
+//BFS AI: フロントエンドで完結するローカルAI
+
 function updateAI() {
   // 1. BFSで food までの最短経路を探す
   let direction = findDirectionByBFS();
@@ -147,10 +139,7 @@ function updateAI() {
   }
 }
 
-/**
- * BFSでAIスネーク頭→食べ物まで最短経路を探し、
- * 次のマスから "up/down/left/right" を返す
- */
+
 function findDirectionByBFS() {
   const head = snakeAI[0];
   const queue = [];
@@ -226,9 +215,7 @@ function isCollision(nx, ny) {
   return false;
 }
 
-/**************************************************
- * AI蛇の更新
- **************************************************/
+//AI蛇の更新
 function updateSnakeAI() {
   const head = {
     x: snakeAI[0].x + velocityAI.x,
@@ -266,9 +253,8 @@ function updateSnakeAI() {
   }
 }
 
-/**************************************************
- * 食べ物配置
- **************************************************/
+//食べ物配置
+
 function placeFood() {
   while (true) {
     let fx = Math.floor(Math.random() * tileCount);
@@ -283,9 +269,8 @@ function placeFood() {
   }
 }
 
-/**************************************************
- * 描画
- **************************************************/
+//描画
+
 function draw() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -293,13 +278,13 @@ function draw() {
   ctx.fillStyle="red";
   ctx.fillRect(food.x*tileSize,food.y*tileSize,tileSize,tileSize);
 
-  // ユーザー蛇 (緑)
+  // ユーザー蛇
   ctx.fillStyle="lime";
   snakeUser.forEach(seg=>{
     ctx.fillRect(seg.x*tileSize,seg.y*tileSize,tileSize,tileSize);
   });
 
-  // AI蛇 (シアン)
+  // AI蛇
   ctx.fillStyle="cyan";
   snakeAI.forEach(seg=>{
     ctx.fillRect(seg.x*tileSize,seg.y*tileSize,tileSize,tileSize);
@@ -312,9 +297,7 @@ function draw() {
   ctx.fillText(`AI:   ${scoreAI}`,10,40);
 }
 
-/**************************************************
- * ゲームオーバー
- **************************************************/
+//ゲームオーバー
 function drawGameOver() {
   ctx.fillStyle="rgba(0,0,0,0.6)";
   ctx.fillRect(0,0,canvas.width,canvas.height);
